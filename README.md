@@ -1,1 +1,1 @@
-# Where-s-Wally-Game
+# Wheres-Wally-Game
