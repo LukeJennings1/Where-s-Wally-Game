@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import Header from './header'
+import Footer from './footer'
 
 
   const firebaseConfig = {
@@ -14,12 +15,12 @@ import Header from './header'
   const app = initializeApp(firebaseConfig);
 
 
-function App() 
-{
+function App() {
 
   return (
     <div className="App">
       <Header/>
+      <Footer/>
       
     </div>
   );

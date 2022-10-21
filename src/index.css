@@ -2,9 +2,6 @@
   font-family:  "Optima-ExtraBlack";
   src: local("Optima-ExtraBlack") url('./assets/Optima-ExtraBlack.otf') format('otf');
 }
-
-
-
 * {
   margin: 0;
   padding: 0;
@@ -24,12 +21,12 @@
   gap: 15px;
   font-family: "Optima-ExtraBlack";
   text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-
 }
 #wally-image {
   width: 70px;
   height: 70px;
-  margin-left: 95%;
+  margin-left: 47.5%;
+  position: absolute;
 }
 #wheres { 
   color: #1c99d6;
@@ -54,4 +51,28 @@
   flex-direction: row;
   margin-right: 85%;
   position: absolute;
+}
+.footer-wrapper {
+  display: flex;
+  justify-content:center;
+  margin-top: 84vh;
+  width: 100%;
+  font-size: 20px;
+  padding-top: 4px;
+  box-shadow: 0px -7px 15px -4px #b3b2b2;
+}
+#github-logo {
+  width: 35px;
+  height: 35px;
+}
+.made-by{
+  display: flex ;
+  align-items: center;
+  font-family: "Optima-ExtraBlack";
+  text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+  color: #1c99d6;
+  gap: 5px;
+}
+#name-styling-footer {
+  color: #c7262f;
 }
