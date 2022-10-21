@@ -55,10 +55,9 @@
 .footer-wrapper {
   display: flex;
   justify-content:center;
-  margin-top: 84vh;
   width: 100%;
   font-size: 20px;
-  padding-top: 4px;
+  padding-top: 6px;
   box-shadow: 0px -7px 15px -4px #b3b2b2;
 }
 #github-logo {
@@ -75,4 +74,15 @@
 }
 #name-styling-footer {
   color: #c7262f;
+}
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+}
+#wally-level-1-image {
+  padding: 20px;
+  width: 80%;
+  height: 95%;
 }
