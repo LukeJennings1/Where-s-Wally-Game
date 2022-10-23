@@ -1,8 +1,15 @@
 import wallyLevel1 from './assets/wally-level-1.png'
 import Dropdown from './dropdown';
 import { useState, useRef } from 'react'
+import { db } from './firebaseconfig'
+import { uid } from 'uid'
+import { getDatabase, ref, set } from 'firebase/database'
+import dataBase from './firebaseconfig'
 
 function Content() {
+
+
+
 
 const [dropDown, setDropDown] = useState(false)
 const [positionX, setDropDownPositionX] = useState()
@@ -43,9 +50,9 @@ const callingStatement = (event) => {
         <div className="content-wrapper" onClick = {(event) => {resetpointer(event)}} ref={contextSelector}>
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
             <div className='button-wrapper'>
-                <button ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#4CAF50'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
-                <button ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#4CAF50'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>Wizard</button>
-                <button ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#4CAF50'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>Odlaw</button>
+                <button ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
+                <button ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>Wizard</button>
+                <button ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>Odlaw</button>
             </div>
         </div>
         {/* {dropDown && adddropdown()}  this is known as a "Short-Circuit Evaluation IE render is the first statement is true*/} 
