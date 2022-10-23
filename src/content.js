@@ -5,6 +5,7 @@ import { db } from './firebaseconfig'
 import { uid } from 'uid'
 import { getDatabase, ref, set } from 'firebase/database'
 import dataBase from './firebaseconfig'
+import Grid from './grid'
 
 function Content() {
 
@@ -19,6 +20,7 @@ const modal = useRef(0)
 const button1 = useRef(null)
 const button2 = useRef(null)
 const button3 = useRef(null)
+
 
 const contextSelector = useRef(null)
 
@@ -48,6 +50,9 @@ const callingStatement = (event) => {
 }
     return (
         <div className="content-wrapper" onClick = {(event) => {resetpointer(event)}} ref={contextSelector}>
+                              {/* <div className='grid-container'></div> */}
+
+            
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
             <div className='button-wrapper'>
                 <button ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
@@ -59,7 +64,9 @@ const callingStatement = (event) => {
         {/* ^^ if the state and dropdown are equal to true render dropdown. As the Dropdown is always true 
         we just need to adjust the dropDown to true on a click like the one in the img below. 
         IE The expression is just if first part is true, then this is equal to the second part*/}
+        
             <img onClick={(event) => {callingStatement(event)}} id = 'wally-level-1-image' src={wallyLevel1}></img>
+            <Grid />
         </div>
     )
 }   
