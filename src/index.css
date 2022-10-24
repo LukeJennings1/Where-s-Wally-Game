@@ -84,15 +84,17 @@
 #wally-level-1-image {
   width: 80%;
   height: 95%;
-  z-index: 2;
+  z-index: 1;
+
 }
 #dropdown-selector {
   position: absolute;
-  z-index: 100;
+  z-index: 2;
   opacity: 0;
   appearance: none;
   outline: none;
   font-size: 20px;
+  pointer-events: auto;
 }
 .button-wrapper {
   display: flex;
@@ -100,26 +102,38 @@
   border: solid;
   border-radius: 5px;
   width: 100px;
+
 }
 .dropdown-buttons {
   border: none;
   font-family: "Optima-ExtraBlack";
   font-size: 15px;
   background-color: rgb(255, 255, 255);
+  z-index: 1;
 }
 .grid-container {
   display: grid;
   grid-template-columns: repeat(100, 1%);
   height: 86%;
   width: 80%;
-  z-index: 300;
+  z-index: 1;
+  background-color: transparent;
+  border-color: transparent;
   position: absolute;
+  
 }
-.rows {
-  border: solid;
+.row {
   display: grid;
+  /* border: solid; */
+  /* z-index: 2000; */
+ 
 
 } 
 .columns {
   border: solid;
+  background-color: transparent;
+  border-color: transparent;
+  pointer-events: auto;
+
+  
 }
