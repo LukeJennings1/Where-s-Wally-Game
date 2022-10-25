@@ -3,18 +3,29 @@ import Dropdown from './dropdown';
 import { useState, useRef } from 'react'
 import { db } from './firebaseconfig'
 import { uid } from 'uid'
-import { getDatabase, ref, set } from 'firebase/database'
+import { getDatabase, onValue, ref, set, get, child } from 'firebase/database'
 import dataBase from './firebaseconfig'
 import Grid from './grid'
+import { dataB } from './firebaseconfig'
 
 function Content() {
-
-
-
 
 const [dropDown, setDropDown] = useState(false)
 const [positionX, setDropDownPositionX] = useState()
 const [positionY, setDropDownPositionY] = useState()
+const [validator, setValidator] = useState([])
+
+
+
+let list = []
+onValue(ref(dataB, 'validationDB'), (snapshot) => {
+  const data = (snapshot.val())
+  list.push(data)
+}, {
+  onlyOnce: true
+});
+
+
 
 const modal = useRef(0)
 const button1 = useRef(null)
@@ -30,15 +41,15 @@ const buttonTransitionOut = () => {
     button3.current.style.backgroundColor = 'white';
 
 }
-// const resetpointer = (event) => {
-//     console.log(event.target)
-//     if (event.target.id != "wally-level-1-image" ||  ) {
-//         modal.current.style.opacity = 0
-//     }
-// } 
-const changeColor = (event) => {
+const resetpointer = (event) => {
     console.log(event.target)
-    console.log('odlaw')
+    if (event.target.className === "content-wrapper") {
+        modal.current.style.opacity = 0
+    }
+} 
+const changeColor = (event) => {
+    console.log(event.target.id)
+    console.log(list[0].odlawID)
 
 }
 
@@ -55,15 +66,13 @@ const callingStatement = (event) => {
         modal.current.style.left = mousePosx + 'px',
         modal.current.style.top = mousePosy + 'px',
         modal.current.style.opacity = 50,
-        console.log(event)
-
-
-        // resetpointer(event)
+        console.log(event.target.className)
     )
 
 }
+
     return (
-        <div className="content-wrapper" ref={contextSelector}>
+        <div className="content-wrapper" onClick={(event) => {resetpointer(event)}} ref={contextSelector}>
 
             
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
@@ -1869,12 +1878,12 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'Odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -3841,10 +3850,229 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+            </div>
+            <div className='row'>
+                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+            </div>
+            <div className='row'>
+                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+            </div>
+            <div className='row'>
+                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' ></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' id = 'Wally'></div>
+                <div className='columns' ></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4353,9 +4581,155 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
+                <div className='columns' ></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+            </div>
+            <div className='row'>
+                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' ></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' ></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+            </div>
+            <div className='row'>
+                 <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4426,8 +4800,8 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4496,377 +4870,12 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-            </div>
-            <div className='row'>
-                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-            </div>
-            <div className='row'>
-                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-            </div>
-            <div className='row'>
-                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-            </div>
-            <div className='row'>
-                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-            </div>
-            <div className='row'>
-                 <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
-                <div className='columns'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>

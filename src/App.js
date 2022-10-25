@@ -7,8 +7,10 @@ import { dataB } from './firebaseconfig'
 function App() {  
 
   function WriteData() {
-    set(ref(dataB, `tester`), {
-        itemLocation: 'TEST D4', 
+    set(ref(dataB, `validationDB`), {
+        odlawID: 'odlaw',
+        wallyID: 'oally', 
+        wizardID: 'wizard', 
         boolean: false
     });
 }

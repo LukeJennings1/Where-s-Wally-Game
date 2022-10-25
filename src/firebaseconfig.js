@@ -1,6 +1,7 @@
 import { getDatabase } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyChTHzRl_f07FX3HVX1D972AAGXCdydwdM",
     authDomain: "wheres-wally-game-e40c6.firebaseapp.com",
