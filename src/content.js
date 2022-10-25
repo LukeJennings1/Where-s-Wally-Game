@@ -10,10 +10,14 @@ import { dataB } from './firebaseconfig'
 
 function Content() {
 
-const [dropDown, setDropDown] = useState(false)
 const [positionX, setDropDownPositionX] = useState()
 const [positionY, setDropDownPositionY] = useState()
-const [validator, setValidator] = useState([])
+
+
+
+const [wallyValidator, setWallyValidator] = useState(false)
+const [odlawValidator, setOdlawValidator] = useState(false)
+const [wizardValidator, setWizardValidator] = useState(false)
 
 
 
@@ -25,21 +29,15 @@ onValue(ref(dataB, 'validationDB'), (snapshot) => {
   onlyOnce: true
 });
 
-
-
 const modal = useRef(0)
 const button1 = useRef(null)
 const button2 = useRef(null)
 const button3 = useRef(null)
 
-
-const contextSelector = useRef(null)
-
 const buttonTransitionOut = () => {
     button1.current.style.backgroundColor = 'white';
     button2.current.style.backgroundColor = 'white';
     button3.current.style.backgroundColor = 'white';
-
 }
 const resetpointer = (event) => {
     console.log(event.target)
@@ -47,15 +45,38 @@ const resetpointer = (event) => {
         modal.current.style.opacity = 0
     }
 } 
-const changeColor = (event) => {
-    console.log(event.target.id)
-    console.log(list[0].odlawID)
-
+const validation = (event) => {
+    if (event.target.id === list[0].odlawID) {
+        setOdlawValidator(true)
+    } else if (event.target.id === list[0].wallyID) {
+        setWallyValidator(true)
+    } else if (event.target.id === list[0].wizardID) {
+        setWizardValidator(true)
+    }
 }
-
-const clickEvent = () => {
+const clickEventOdlaw = () => {
     modal.current.style.opacity = 0
-    
+    if (odlawValidator === true) {
+        console.log('odlaw has been found!')
+    } else { 
+        console.log('odlaw is nowhere to be seen here!')
+    }
+}
+const clickEventWally = () => {
+    modal.current.style.opacity = 0
+    if (wallyValidator === true) {
+        console.log('Wally has been found!')
+    } else { 
+        console.log('Wally is nowhere to be seen here!')
+    }
+}
+const clickEventWizard = () => {
+    modal.current.style.opacity = 0
+    if (wizardValidator === true) {
+        console.log('Wizard has been found!')
+    } else { 
+        console.log('Wizard is nowhere to be seen here!')
+    }
 }
 const callingStatement = (event) => {
     let mousePosx = event.clientX
@@ -72,14 +93,14 @@ const callingStatement = (event) => {
 }
 
     return (
-        <div className="content-wrapper" onClick={(event) => {resetpointer(event)}} ref={contextSelector}>
+        <div className="content-wrapper" onClick={(event) => {resetpointer(event)}}>
 
             
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
             <div className='button-wrapper'>
-                <button onClick = {() => {clickEvent()}} ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
-                <button onClick = {() => {clickEvent()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>Wizard</button>
-                <button onClick = {() => {clickEvent()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>Odlaw</button>
+                <button onClick = {() => {clickEventWally()}} ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
+                <button onClick = {() => {clickEventWizard()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>Wizard</button>
+                <button onClick = {() => {clickEventOdlaw()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>Odlaw</button>
             </div>
         </div>
         {/* {dropDown && adddropdown()}  this is known as a "Short-Circuit Evaluation IE render is the first statement is true*/} 
@@ -93,7 +114,7 @@ const callingStatement = (event) => {
 
             <div className="grid-container" onClick={(event) => {callingStatement(event)}} >
             <div className='row'>
-                <div className='columns'></div>
+                <div className='columns'></div> 
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -1878,12 +1899,12 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
-                <div onClick={(event) => {changeColor(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
+                <div onClick={(event) => {validation(event)}} id = 'odlaw' className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -3850,9 +3871,9 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -3922,11 +3943,11 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -3995,11 +4016,11 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4070,8 +4091,8 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wally'></div>
-                <div className='columns' id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wally'></div>
                 <div className='columns' ></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4581,9 +4602,9 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4652,11 +4673,11 @@ const callingStatement = (event) => {
                 <div className='columns' ></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
                 <div className='columns' ></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4725,11 +4746,11 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4800,8 +4821,8 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
@@ -4870,12 +4891,12 @@ const callingStatement = (event) => {
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
-                <div className='columns' id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
+                <div className='columns' onClick = {(event) => {validation(event)}} id = 'Wizard'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>
                 <div className='columns'></div>

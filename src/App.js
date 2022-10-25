@@ -9,8 +9,8 @@ function App() {
   function WriteData() {
     set(ref(dataB, `validationDB`), {
         odlawID: 'odlaw',
-        wallyID: 'oally', 
-        wizardID: 'wizard', 
+        wallyID: 'Wally', 
+        wizardID: 'Wizard', 
         boolean: false
     });
 }
