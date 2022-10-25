@@ -132,6 +132,22 @@
   border: solid;
   background-color: transparent;
   border-color: transparent;
-
-  
+}
+.character-cards {
+  border: solid;
+  height: 200px;
+  width: 50px;
+  position: absolute;
+  z-index: 500;
+  margin-right: 90%;
+  margin-top: 5%;
+  max-height: 200px;
+  max-width: 50px;
+  object-fit: contain;
+}
+.character-images{
+  padding-bottom: 15px;
+  object-fit: contain;
+  height: 50px;
+  width: 50px;
 }

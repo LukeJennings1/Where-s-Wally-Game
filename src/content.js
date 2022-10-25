@@ -7,12 +7,15 @@ import { getDatabase, onValue, ref, set, get, child } from 'firebase/database'
 import dataBase from './firebaseconfig'
 import Grid from './grid'
 import { dataB } from './firebaseconfig'
+import odlawImage from './assets/odlaw.jpg'
+import wallyImage from './assets/wally.png'
+import wizardImage from './assets/wizard.png'
+
 
 function Content() {
 
 const [positionX, setDropDownPositionX] = useState()
 const [positionY, setDropDownPositionY] = useState()
-
 
 
 const [wallyValidator, setWallyValidator] = useState(false)
@@ -33,6 +36,10 @@ const modal = useRef(0)
 const button1 = useRef(null)
 const button2 = useRef(null)
 const button3 = useRef(null)
+const wallyImageCard = useRef(null)
+const odlawImageCard = useRef(null)
+const wizardImageCard = useRef(null)
+
 
 const buttonTransitionOut = () => {
     button1.current.style.backgroundColor = 'white';
@@ -58,6 +65,8 @@ const clickEventOdlaw = () => {
     modal.current.style.opacity = 0
     if (odlawValidator === true) {
         console.log('odlaw has been found!')
+        odlawImageCard.current.style.opacity = '40%'
+
     } else { 
         console.log('odlaw is nowhere to be seen here!')
     }
@@ -66,6 +75,7 @@ const clickEventWally = () => {
     modal.current.style.opacity = 0
     if (wallyValidator === true) {
         console.log('Wally has been found!')
+        wallyImageCard.current.style.opacity = '40%'
     } else { 
         console.log('Wally is nowhere to be seen here!')
     }
@@ -74,8 +84,11 @@ const clickEventWizard = () => {
     modal.current.style.opacity = 0
     if (wizardValidator === true) {
         console.log('Wizard has been found!')
+        wizardImageCard.current.style.opacity = '40%'
+
     } else { 
         console.log('Wizard is nowhere to be seen here!')
+        
     }
 }
 const callingStatement = (event) => {
@@ -107,7 +120,11 @@ const callingStatement = (event) => {
         {/* ^^ if the state and dropdown are equal to true render dropdown. As the Dropdown is always true 
         we just need to adjust the dropDown to true on a click like the one in the img below. 
         IE The expression is just if first part is true, then this is equal to the second part*/}
-        
+            <div className='character-cards'>
+                <img className = 'character-images' src={wallyImage} ref = {wallyImageCard}></img>
+                <img className = 'character-images' src={odlawImage} ref = {odlawImageCard}></img>
+                <img className = 'character-images' src={wizardImage} ref = {wizardImageCard}></img>
+            </div>
             <img id = 'wally-level-1-image' src={wallyLevel1}></img>
             {/* <Grid /> */}
 
