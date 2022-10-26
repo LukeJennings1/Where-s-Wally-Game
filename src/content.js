@@ -1,6 +1,6 @@
 import wallyLevel1 from './assets/wally-level-1.png'
 import Dropdown from './dropdown';
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { db } from './firebaseconfig'
 import { uid } from 'uid'
 import { getDatabase, onValue, ref, set, get, child } from 'firebase/database'
@@ -10,19 +10,20 @@ import { dataB } from './firebaseconfig'
 import odlawImage from './assets/odlaw.jpg'
 import wallyImage from './assets/wally.png'
 import wizardImage from './assets/wizard.png'
-import Timer from './timer'
+import timer from './assets/timer.png'
+
 
 
 function Content() {
 
 const [positionX, setDropDownPositionX] = useState()
 const [positionY, setDropDownPositionY] = useState()
-
-
+const [minutes, setminutes] = useState(0)
+const [seconds, setSeconds] = useState(0)
 const [wallyValidator, setWallyValidator] = useState(false)
 const [odlawValidator, setOdlawValidator] = useState(false)
 const [wizardValidator, setWizardValidator] = useState(false)
-
+const [isgameover, setGameOver] = useState(false)
 
 
 let list = []
@@ -40,6 +41,7 @@ const button3 = useRef(null)
 const wallyImageCard = useRef(null)
 const odlawImageCard = useRef(null)
 const wizardImageCard = useRef(null)
+const gameOverModal = useRef(null)
 
 
 const buttonTransitionOut = () => {
@@ -67,6 +69,7 @@ const clickEventOdlaw = () => {
     if (odlawValidator === true) {
         console.log('odlaw has been found!')
         odlawImageCard.current.style.opacity = '40%'
+        gameover()
 
     } else { 
         console.log('odlaw is nowhere to be seen here!')
@@ -77,6 +80,7 @@ const clickEventWally = () => {
     if (wallyValidator === true) {
         console.log('Wally has been found!')
         wallyImageCard.current.style.opacity = '40%'
+        gameover()
     } else { 
         console.log('Wally is nowhere to be seen here!')
     }
@@ -86,7 +90,7 @@ const clickEventWizard = () => {
     if (wizardValidator === true) {
         console.log('Wizard has been found!')
         wizardImageCard.current.style.opacity = '40%'
-
+        gameover()
     } else { 
         console.log('Wizard is nowhere to be seen here!')
         
@@ -103,8 +107,32 @@ const callingStatement = (event) => {
         modal.current.style.opacity = 50,
         console.log(event.target.className)
     )
-
 }
+const gameover = () => {
+    if (wallyValidator && odlawValidator && wizardValidator === true) {
+        gameOverModal.current.style.opacity = '100%';
+        gameOverModal.current.style.zIndex = "1000";
+        setGameOver(true)
+    }
+}
+useEffect(() => {
+    if (isgameover === false) {
+    const timer = setInterval(() => setSeconds(seconds + 1), 1000);
+    return () => clearInterval(timer)
+    }
+
+    if (isgameover === true) {
+        setSeconds(seconds)
+        setminutes(minutes)
+        console.log('nope')
+    } 
+    
+    if (seconds === 60) {
+        setminutes(minutes + 1)
+        setSeconds(0)
+    }
+   
+},[seconds])
 
     return (
         <div className="content-wrapper" onClick={(event) => {resetpointer(event)}}>
@@ -125,13 +153,20 @@ const callingStatement = (event) => {
         we just need to adjust the dropDown to true on a click like the one in the img below. 
         IE The expression is just if first part is true, then this is equal to the second part*/}
             <div className='character-cards'>
-                <Timer />
+                <div className='timer-wrapper'>
+                 <img id = 'timer-icon' src={timer}></img>
+                 <div id = 'timer'>{minutes + ':'}{seconds}</div>
+                </div>
+
                 <img className = 'character-images' src={wallyImage} ref = {wallyImageCard}></img>
                 <img className = 'character-images' src={odlawImage} ref = {odlawImageCard}></img>
                 <img className = 'character-images' src={wizardImage} ref = {wizardImageCard}></img>
             </div>
-            <div className='winner-modal-wrapper'>
-                <div id = 'winner-modal'></div>
+            <div ref = { gameOverModal } className='winner-modal-wrapper'>
+                <div id = 'winner-modal'>WINNER!</div>
+                <div id = 'winner-modal-time'>You completed it in {minutes + ':'}{seconds}</div>
+                <button>Reset</button>
+
             </div>
             <img id = 'wally-level-1-image' src={wallyLevel1}></img>
 
