@@ -112,9 +112,12 @@ const callingStatement = (event) => {
             
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
             <div className='button-wrapper'>
-                <button onClick = {() => {clickEventWally()}} ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>Wally</button>
-                <button onClick = {() => {clickEventWizard()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>Wizard</button>
-                <button onClick = {() => {clickEventOdlaw()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>Odlaw</button>
+                <button onClick = {() => {clickEventWally()}} ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>
+                    Wally <img className = 'dropdown-character-icons' src={wallyImage}></img> </button>
+                <button onClick = {() => {clickEventWizard()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>
+                    Wizard <img className = 'dropdown-character-icons' src={wizardImage}></img></button>
+                <button onClick = {() => {clickEventOdlaw()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>
+                    Odlaw <img className = 'dropdown-character-icons' src={odlawImage}></img></button>
             </div>
         </div>
         {/* {dropDown && adddropdown()}  this is known as a "Short-Circuit Evaluation IE render is the first statement is true*/} 
@@ -127,8 +130,10 @@ const callingStatement = (event) => {
                 <img className = 'character-images' src={odlawImage} ref = {odlawImageCard}></img>
                 <img className = 'character-images' src={wizardImage} ref = {wizardImageCard}></img>
             </div>
+            <div className='winner-modal-wrapper'>
+                <div id = 'winner-modal'></div>
+            </div>
             <img id = 'wally-level-1-image' src={wallyLevel1}></img>
-            {/* <Grid /> */}
 
 
             <div className="grid-container" onClick={(event) => {callingStatement(event)}} >
