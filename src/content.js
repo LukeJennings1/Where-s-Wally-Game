@@ -10,6 +10,7 @@ import { dataB } from './firebaseconfig'
 import odlawImage from './assets/odlaw.jpg'
 import wallyImage from './assets/wally.png'
 import wizardImage from './assets/wizard.png'
+import Timer from './timer'
 
 
 function Content() {
@@ -121,6 +122,7 @@ const callingStatement = (event) => {
         we just need to adjust the dropDown to true on a click like the one in the img below. 
         IE The expression is just if first part is true, then this is equal to the second part*/}
             <div className='character-cards'>
+                <Timer />
                 <img className = 'character-images' src={wallyImage} ref = {wallyImageCard}></img>
                 <img className = 'character-images' src={odlawImage} ref = {odlawImageCard}></img>
                 <img className = 'character-images' src={wizardImage} ref = {wizardImageCard}></img>
