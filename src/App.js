@@ -14,7 +14,13 @@ function App() {
         boolean: false
     });
 }
+function WriteDataScore() {
+  set(ref(dataB, `Highscores`), {
+      score1: '50s'
+  });
+}
 WriteData()
+WriteDataScore()
   return (
     <div className="App">
       <Header/>

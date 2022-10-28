@@ -176,12 +176,34 @@
   align-items: center;
 }
 .winner-modal-wrapper {
-  position: absolute;
+    position: absolute;
     border: solid;
     width: 80%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     margin-top: 15%;
     height: 20%;
     opacity: 0;
+    background-color: #c7262f;
+    color: white;
+    font-family: "Optima-ExtraBlack";
+    font-size: 35px;
+}
+#winner-modal {
+  font-size: 40px;
+  max-height: 50%;
+  max-width: 90%;
+}
+#game-reset-button {
+  background: none;
+  border: solid;
+  padding: 7px;
+  border-radius: 10px;
+  color: white;
+  font-family: "Optima-ExtraBlack";
+}
+#game-reset-button:hover {
+  background-color: #1c99d6;
 }

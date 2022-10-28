@@ -108,31 +108,47 @@ const callingStatement = (event) => {
         console.log(event.target.className)
     )
 }
+const restartGame = () => {
+    setGameOver(false)
+    gameOverModal.current.style.opacity = '0';
+    gameOverModal.current.style.zIndex = "0";
+    gameOverModal.current.style.pointerEvents = "none";
+    wizardImageCard.current.style.opacity = '100%';
+    wallyImageCard.current.style.opacity = '100%';
+    odlawImageCard.current.style.opacity = '100%';
+    setWallyValidator(false)
+    setOdlawValidator(false)
+    setWizardValidator(false) 
+    setSeconds(0)
+    setminutes(0)
+}
 const gameover = () => {
     if (wallyValidator && odlawValidator && wizardValidator === true) {
         gameOverModal.current.style.opacity = '100%';
         gameOverModal.current.style.zIndex = "1000";
+        gameOverModal.current.style.pointerEvents = "auto";
         setGameOver(true)
     }
 }
 useEffect(() => {
-    if (isgameover === false) {
-    const timer = setInterval(() => setSeconds(seconds + 1), 1000);
-    return () => clearInterval(timer)
-    }
-
     if (isgameover === true) {
         setSeconds(seconds)
         setminutes(minutes)
         console.log('nope')
-    } 
-    
-    if (seconds === 60) {
-        setminutes(minutes + 1)
-        setSeconds(0)
+    }
+    if (isgameover === false) {
+        if (seconds === 60) {
+            setminutes(minutes + 1)
+            setSeconds(0)
+        }
+    const timer = setInterval(() => setSeconds(seconds + 1), 1000);
+    return () => clearInterval(timer)
     }
    
 },[seconds])
+
+
+
 
     return (
         <div className="content-wrapper" onClick={(event) => {resetpointer(event)}}>
@@ -164,8 +180,8 @@ useEffect(() => {
             </div>
             <div ref = { gameOverModal } className='winner-modal-wrapper'>
                 <div id = 'winner-modal'>WINNER!</div>
-                <div id = 'winner-modal-time'>You completed it in {minutes + ':'}{seconds}</div>
-                <button>Reset</button>
+                <div id = 'winner-modal-time'>You completed it in {minutes + ':'}{seconds + 's'}</div>
+                <button id = 'game-reset-button' onClick={() => {restartGame()}} >RESTART</button>
 
             </div>
             <img id = 'wally-level-1-image' src={wallyLevel1}></img>
