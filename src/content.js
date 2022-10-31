@@ -26,7 +26,8 @@ const [odlawValidator, setOdlawValidator] = useState(false)
 const [wizardValidator, setWizardValidator] = useState(false)
 const [isgameover, setGameOver] = useState(false)
 const [scoreSubmitScreen, setScoreSubmitScren] = useState(false)
-const [scoreBoardvalid, setscoreBoardvalid] = useState(false)
+const [textboxValue, setTextboxValue] = useState('')
+const [scoreBoardTrue, setscoreBoardTrue] = useState(false);
 
 const modal = useRef(0)
 const button1 = useRef(null)
@@ -42,14 +43,7 @@ const content = useRef(null)
 
 let list = []
 let highscores = []
-let totalScore = []
 
-const filterHighScores = () => {
-    totalScore = highscores[0].sort(function(a, b) {
-        return parseFloat(a.time) - parseFloat(b.time);
-   });
-   console.log(totalScore)
-}
 
 onValue(ref(dataB, 'validationDB'), (snapshot) => {
   const data = (snapshot.val())
@@ -61,23 +55,19 @@ onValue(ref(dataB, 'validationDB'), (snapshot) => {
 // ^^ this is the validation for game complete read
 
 onValue(ref(dataB, 'Highscores'), (snapshot) => {
-    const highscoredata = (snapshot.val())
+    const highscoredata = (snapshot.val().sort(function(a,b) {
+        return parseFloat(a.time) - parseFloat(b.time)}))
     highscores.push(highscoredata)
-  }, {
-      
-    onlyOnce: true
   });
   // this is the highest score list database read 
-
  
 
 const buttonTransitionOut = () => {
     button1.current.style.backgroundColor = 'white';
     button2.current.style.backgroundColor = 'white';
-    button3.current.style.backgroundColor = 'white';
+    button3.current.style.backgroundColor = 'white'; 
 }
 const resetpointer = (event) => {
-    console.log(event.target)
     if (event.target.className === "content-wrapper") {
         modal.current.style.opacity = 0
         modal.current.style.pointerEvents = 'none'
@@ -102,34 +92,24 @@ const validation = (event) => {
 const clickEventOdlaw = () => {
     modal.current.style.opacity = 0
     if (odlawValidator === true && odlawFound === true) {
-        console.log('odlaw has been found!')
         odlawImageCard.current.style.opacity = '40%'
         gameover()
 
-    } else { 
-        console.log('odlaw is nowhere to be seen here!')
-    }
+    } 
 }
 const clickEventWally = () => {
     modal.current.style.opacity = 0
     if (wallyValidator === true && wallyFound === true) {
-        console.log('Wally has been found!')
         wallyImageCard.current.style.opacity = '40%'
         gameover()
-    } else { 
-        console.log('Wally is nowhere to be seen here!')
     }
 }
 const clickEventWizard = () => {
     modal.current.style.opacity = 0
     if (wizardValidator === true && wizardFound === true) {
-        console.log('Wizard has been found!')
         wizardImageCard.current.style.opacity = '40%'
         gameover()
-    } else { 
-        console.log('Wizard is nowhere to be seen here!')
-        
-    }
+    } 
 }
 const callingStatement = (event) => {
     let mousePosx = event.clientX
@@ -170,28 +150,35 @@ const gameover = () => {
 const scoreBoard = () => {
     return (
         <div className="scoreboardElements">
-          {totalScore.map((user, index) => (
-            <div key = {index} className="scores">{user.name + ' : ' + user.time}</div>
+          {highscores[0].map((user, index) => (
+            <div key={index} className="scores">{user.name + ' : ' + user.time}</div>
           ))}
         </div>
       );
     };
 
+
+const submitHighScore = () => {
+
+        // set(ref(dataB, `Highscores`), [
+        //     {name: textboxValue, time:  seconds + 's'},
+        // ]);
+
+}
 const submitScore = () => {
-    filterHighScores()
     gameOverModal.current.style.opacity = '0';
     gameOverModal.current.style.zIndex = "0";
     gameOverModal.current.style.pointerEvents = "none";
     return (
 
         <div ref={scoreboard} className='scoreboard-wrapper'>
-                        <div id = 'title-card-scoreboard'>LeaderBoard</div>
+                        <div id = 'title-card-scoreboard'>Leaderboard</div>
                             
                             <div id = 'scoreboard'>
-                                <div id = 'conditional-render'>{scoreBoard()}</div>
+                                <div id = 'conditional-render'>{scoreBoardTrue && scoreBoard()}</div>
                             </div>
                                 <div className='enter-score-wrapper'>
-                            <input type='text' placeholder='Enter Name' id = 'top-score-submit-box'></input>
+                            <input type='text' value={textboxValue} onChange={(event) => {setTextboxValue(event.target.value) }} placeholder='Enter Name' id = 'top-score-submit-box'></input>
                             <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore()}}>Submit</button>
                                 </div>
                         </div>
@@ -245,7 +232,7 @@ useEffect(() => {
                 <div id = 'winner-modal-time'>You completed it in {minutes + ':'}{seconds + 's'}</div>
             <div className='winner-modal-button-wrapper'>
                 <button id = 'game-reset-button' onClick={() => {restartGame()}} >RESTART</button>
-                <button id = 'submit-score-button' onClick={() => {setScoreSubmitScren(true)}}>SUBMIT SCORE</button>
+                <button id = 'submit-score-button' onClick={() => {setScoreSubmitScren(true); setscoreBoardTrue(true)}}>SUBMIT SCORE</button>
             </div>
             </div>
             {scoreSubmitScreen && submitScore()}
