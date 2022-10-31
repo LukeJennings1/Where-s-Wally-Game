@@ -11,6 +11,7 @@ import odlawImage from './assets/odlaw.jpg'
 import wallyImage from './assets/wally.png'
 import wizardImage from './assets/wizard.png'
 import timer from './assets/timer.png'
+import restart from './assets/restart.png'
 
 
 
@@ -24,15 +25,8 @@ const [wallyValidator, setWallyValidator] = useState(false)
 const [odlawValidator, setOdlawValidator] = useState(false)
 const [wizardValidator, setWizardValidator] = useState(false)
 const [isgameover, setGameOver] = useState(false)
-
-
-let list = []
-onValue(ref(dataB, 'validationDB'), (snapshot) => {
-  const data = (snapshot.val())
-  list.push(data)
-}, {
-  onlyOnce: true
-});
+const [scoreSubmitScreen, setScoreSubmitScren] = useState(false)
+const [scoreBoardvalid, setscoreBoardvalid] = useState(false)
 
 const modal = useRef(0)
 const button1 = useRef(null)
@@ -42,7 +36,40 @@ const wallyImageCard = useRef(null)
 const odlawImageCard = useRef(null)
 const wizardImageCard = useRef(null)
 const gameOverModal = useRef(null)
+const scoreboard = useRef(null)
+const content = useRef(null)
 
+
+let list = []
+let highscores = []
+let totalScore = []
+
+const filterHighScores = () => {
+    totalScore = highscores[0].sort(function(a, b) {
+        return parseFloat(a.time) - parseFloat(b.time);
+   });
+   console.log(totalScore)
+}
+
+onValue(ref(dataB, 'validationDB'), (snapshot) => {
+  const data = (snapshot.val())
+  list.push(data)
+}, {
+  onlyOnce: true
+}); 
+
+// ^^ this is the validation for game complete read
+
+onValue(ref(dataB, 'Highscores'), (snapshot) => {
+    const highscoredata = (snapshot.val())
+    highscores.push(highscoredata)
+  }, {
+      
+    onlyOnce: true
+  });
+  // this is the highest score list database read 
+
+ 
 
 const buttonTransitionOut = () => {
     button1.current.style.backgroundColor = 'white';
@@ -53,20 +80,28 @@ const resetpointer = (event) => {
     console.log(event.target)
     if (event.target.className === "content-wrapper") {
         modal.current.style.opacity = 0
+        modal.current.style.pointerEvents = 'none'
+        // content.current.style.pointerEvents = 'auto';
+
     }
 } 
+const [odlawFound, setodlawFound] = useState(false)
+const [wallyFound, setwallyFound] = useState(false)
+const [wizardFound, setwizardFound] = useState(false)
+
+
 const validation = (event) => {
     if (event.target.id === list[0].odlawID) {
-        setOdlawValidator(true)
+       return  setOdlawValidator(true)
     } else if (event.target.id === list[0].wallyID) {
-        setWallyValidator(true)
+        return  setWallyValidator(true)
     } else if (event.target.id === list[0].wizardID) {
-        setWizardValidator(true)
+         return setWizardValidator(true)
     }
 }
 const clickEventOdlaw = () => {
     modal.current.style.opacity = 0
-    if (odlawValidator === true) {
+    if (odlawValidator === true && odlawFound === true) {
         console.log('odlaw has been found!')
         odlawImageCard.current.style.opacity = '40%'
         gameover()
@@ -77,7 +112,7 @@ const clickEventOdlaw = () => {
 }
 const clickEventWally = () => {
     modal.current.style.opacity = 0
-    if (wallyValidator === true) {
+    if (wallyValidator === true && wallyFound === true) {
         console.log('Wally has been found!')
         wallyImageCard.current.style.opacity = '40%'
         gameover()
@@ -87,7 +122,7 @@ const clickEventWally = () => {
 }
 const clickEventWizard = () => {
     modal.current.style.opacity = 0
-    if (wizardValidator === true) {
+    if (wizardValidator === true && wizardFound === true) {
         console.log('Wizard has been found!')
         wizardImageCard.current.style.opacity = '40%'
         gameover()
@@ -105,7 +140,7 @@ const callingStatement = (event) => {
         modal.current.style.left = mousePosx + 'px',
         modal.current.style.top = mousePosy + 'px',
         modal.current.style.opacity = 50,
-        console.log(event.target.className)
+        modal.current.style.pointerEvents = 'auto'
     )
 }
 const restartGame = () => {
@@ -116,62 +151,89 @@ const restartGame = () => {
     wizardImageCard.current.style.opacity = '100%';
     wallyImageCard.current.style.opacity = '100%';
     odlawImageCard.current.style.opacity = '100%';
+
     setWallyValidator(false)
     setOdlawValidator(false)
     setWizardValidator(false) 
     setSeconds(0)
-    setminutes(0)
+    setminutes(0)   
+    setScoreSubmitScren(false)
 }
 const gameover = () => {
-    if (wallyValidator && odlawValidator && wizardValidator === true) {
-        gameOverModal.current.style.opacity = '100%';
+    if (wallyValidator === true && odlawValidator === true && wizardValidator === true) {
+        setGameOver(true)
+        setInterval(() => gameOverModal.current.style.opacity = '100%', 800) 
         gameOverModal.current.style.zIndex = "1000";
         gameOverModal.current.style.pointerEvents = "auto";
-        setGameOver(true)
     }
+}
+const scoreBoard = () => {
+    return (
+        <div className="scoreboardElements">
+          {totalScore.map((user, index) => (
+            <div key = {index} className="scores">{user.name + ' : ' + user.time}</div>
+          ))}
+        </div>
+      );
+    };
+
+const submitScore = () => {
+    filterHighScores()
+    gameOverModal.current.style.opacity = '0';
+    gameOverModal.current.style.zIndex = "0";
+    gameOverModal.current.style.pointerEvents = "none";
+    return (
+
+        <div ref={scoreboard} className='scoreboard-wrapper'>
+                        <div id = 'title-card-scoreboard'>LeaderBoard</div>
+                            
+                            <div id = 'scoreboard'>
+                                <div id = 'conditional-render'>{scoreBoard()}</div>
+                            </div>
+                                <div className='enter-score-wrapper'>
+                            <input type='text' placeholder='Enter Name' id = 'top-score-submit-box'></input>
+                            <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore()}}>Submit</button>
+                                </div>
+                        </div>
+    )
 }
 useEffect(() => {
     if (isgameover === true) {
         setSeconds(seconds)
         setminutes(minutes)
-        console.log('nope')
     }
+
     if (isgameover === false) {
         if (seconds === 60) {
             setminutes(minutes + 1)
             setSeconds(0)
         }
-    const timer = setInterval(() => setSeconds(seconds + 1), 1000);
-    return () => clearInterval(timer)
-    }
-   
+        const timer = setInterval(() => setSeconds(seconds + 1), 1000);
+        return () => clearInterval(timer)
+    } 
 },[seconds])
 
-
-
-
     return (
-        <div className="content-wrapper" onClick={(event) => {resetpointer(event)}}>
-
-            
+        <div className="content-wrapper" ref = {content} onClick={(event) => {resetpointer(event)}}>
               <div ref={modal} id = 'dropdown-selector' className='dropdown-selector-class'>
             <div className='button-wrapper'>
-                <button onClick = {() => {clickEventWally()}} ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wally'}>
+                <button onClick = {() => {clickEventWally()}}  ref={button1} onMouseEnter={() => {button1.current.style.backgroundColor = '#c7262f'; setwallyFound(true);}} onMouseLeave = {() => {buttonTransitionOut(); setwallyFound(false); }} className = 'dropdown-buttons' value={'Wally'}>
                     Wally <img className = 'dropdown-character-icons' src={wallyImage}></img> </button>
-                <button onClick = {() => {clickEventWizard()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Wizard'}>
+                <button onClick = {() => {clickEventWizard()}} ref={button2} onMouseEnter={() => {button2.current.style.backgroundColor = '#c7262f'; setwizardFound(true);}} onMouseLeave = {() => {buttonTransitionOut(); setwizardFound(false); }} className = 'dropdown-buttons' value={'Wizard'}>
                     Wizard <img className = 'dropdown-character-icons' src={wizardImage}></img></button>
-                <button onClick = {() => {clickEventOdlaw()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'}} onMouseLeave = {() => {buttonTransitionOut()}} className = 'dropdown-buttons' value={'Odlaw'}>
+                <button onClick = {() => {clickEventOdlaw()}} ref={button3} onMouseEnter={() => {button3.current.style.backgroundColor = '#c7262f'; setodlawFound(true);}} onMouseLeave = {() => {buttonTransitionOut(); setodlawFound(false); }} className = 'dropdown-buttons' value={'Odlaw'}>
                     Odlaw <img className = 'dropdown-character-icons' src={odlawImage}></img></button>
             </div>
         </div>
-        {/* {dropDown && adddropdown()}  this is known as a "Short-Circuit Evaluation IE render is the first statement is true*/} 
-        {/* ^^ if the state and dropdown are equal to true render dropdown. As the Dropdown is always true 
-        we just need to adjust the dropDown to true on a click like the one in the img below. 
-        IE The expression is just if first part is true, then this is equal to the second part*/}
+
             <div className='character-cards'>
                 <div className='timer-wrapper'>
+                    <div className='restart-wrapper'>
+                    <img id = 'restart-icon' src={restart} onClick = {() => {restartGame()}}></img>
+                    <div onClick={() => {restartGame()}}>Reset</div>
+                    </div>
                  <img id = 'timer-icon' src={timer}></img>
-                 <div id = 'timer'>{minutes + ':'}{seconds}</div>
+                 <div id = 'timer'>{minutes + 'm' + ':'}{seconds + 's'}</div>
                 </div>
 
                 <img className = 'character-images' src={wallyImage} ref = {wallyImageCard}></img>
@@ -181,9 +243,13 @@ useEffect(() => {
             <div ref = { gameOverModal } className='winner-modal-wrapper'>
                 <div id = 'winner-modal'>WINNER!</div>
                 <div id = 'winner-modal-time'>You completed it in {minutes + ':'}{seconds + 's'}</div>
+            <div className='winner-modal-button-wrapper'>
                 <button id = 'game-reset-button' onClick={() => {restartGame()}} >RESTART</button>
-
+                <button id = 'submit-score-button' onClick={() => {setScoreSubmitScren(true)}}>SUBMIT SCORE</button>
             </div>
+            </div>
+            {scoreSubmitScreen && submitScore()}
+            
             <img id = 'wally-level-1-image' src={wallyLevel1}></img>
 
 

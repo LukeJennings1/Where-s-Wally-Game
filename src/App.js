@@ -15,9 +15,10 @@ function App() {
     });
 }
 function WriteDataScore() {
-  set(ref(dataB, `Highscores`), {
-      score1: '50s'
-  });
+  set(ref(dataB, `Highscores`), [
+      {name: 'John', time: 50 + 's'},
+      {name: 'Dave', time: 40 + 's'}
+  ]);
 }
 WriteData()
 WriteDataScore()
