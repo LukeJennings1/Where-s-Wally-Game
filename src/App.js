@@ -17,8 +17,7 @@ function App() {
 WriteData()
 // function WriteDataScore() {
 //   set(ref(dataB, `Highscores`), [
-//       {name: 'John', time: 50 + 's'},
-//       {name: 'Dave', time: 40 + 's'}
+//       {name: 'John',  time: 1 + ':' + 12 + 's', totalTime: 72 },
 //   ]);
 // }
 // WriteDataScore()

@@ -21,6 +21,7 @@ const [positionX, setDropDownPositionX] = useState()
 const [positionY, setDropDownPositionY] = useState()
 const [minutes, setminutes] = useState(0)
 const [seconds, setSeconds] = useState(0)
+const [totalTime, settotalTime] = useState(0)
 const [wallyValidator, setWallyValidator] = useState(false)
 const [odlawValidator, setOdlawValidator] = useState(false)
 const [wizardValidator, setWizardValidator] = useState(false)
@@ -49,14 +50,13 @@ onValue(ref(dataB, 'validationDB'), (snapshot) => {
   const data = (snapshot.val())
   list.push(data)
 }, {
-  onlyOnce: true
 }); 
 
 // ^^ this is the validation for game complete read
 
 onValue(ref(dataB, 'Highscores'), (snapshot) => {
     const highscoredata = (snapshot.val().sort(function(a,b) {
-        return parseFloat(a.time) - parseFloat(b.time)}))
+        return parseFloat(a.totalTime) - parseFloat(b.totalTime)}))
     highscores.push(highscoredata)
   });
   // this is the highest score list database read 
@@ -81,11 +81,12 @@ const [wizardFound, setwizardFound] = useState(false)
 
 
 const validation = (event) => {
-    if (event.target.id === list[0].odlawID) {
+    console.log(event.target)
+    if (event.target.id == list[0].odlawID) {
        return  setOdlawValidator(true)
-    } else if (event.target.id === list[0].wallyID) {
+    }  if (event.target.id == list[0].wallyID) {
         return  setWallyValidator(true)
-    } else if (event.target.id === list[0].wizardID) {
+    }  if (event.target.id == list[0].wizardID) {
          return setWizardValidator(true)
     }
 }
@@ -137,8 +138,10 @@ const restartGame = () => {
     setWizardValidator(false) 
     setSeconds(0)
     setminutes(0)   
+    settotalTime(0)   
     setScoreSubmitScren(false)
 }
+
 const gameover = () => {
     if (wallyValidator === true && odlawValidator === true && wizardValidator === true) {
         setGameOver(true)
@@ -151,7 +154,7 @@ const scoreBoard = () => {
     return (
         <div className="scoreboardElements">
           {highscores[0].map((user, index) => (
-            <div key={index} className="scores">{user.name + ' : ' + user.time}</div>
+            <div key={index} className="scores">{user.name + ' - ' + user.time}</div>
           ))}
         </div>
       );
@@ -159,9 +162,12 @@ const scoreBoard = () => {
 
 
 const submitHighScore = () => {
-
+   
+// this sets the new submission to the previously added data (taken from the highscores spread operator which is at the top of this page)
+// in doing this we have downloaded the data at the top of the page and set the newly submitted data in this function to equal both
+// the previously submitted data as well as the newly added piece. 
         set(ref(dataB, `Highscores`), [...highscores[0],
-            {name: textboxValue, time:  seconds + 's'},
+            {name: textboxValue, totalTime: totalTime, time: minutes + ':' + seconds + 's', },
         ]); 
 
 }
@@ -188,6 +194,7 @@ useEffect(() => {
     if (isgameover === true) {
         setSeconds(seconds)
         setminutes(minutes)
+        settotalTime(totalTime)
     }
 
     if (isgameover === false) {
@@ -195,7 +202,7 @@ useEffect(() => {
             setminutes(minutes + 1)
             setSeconds(0)
         }
-        const timer = setInterval(() => setSeconds(seconds + 1), 1000);
+        const timer = setInterval(() => setSeconds(seconds + 1, (settotalTime(totalTime + 1))), 1000);
         return () => clearInterval(timer)
     } 
 },[seconds])
