@@ -29,6 +29,7 @@ const [isgameover, setGameOver] = useState(false)
 const [scoreSubmitScreen, setScoreSubmitScren] = useState(false)
 const [textboxValue, setTextboxValue] = useState('')
 const [scoreBoardTrue, setscoreBoardTrue] = useState(false);
+const [update, setUpdate] = useState({})
 
 const modal = useRef(0)
 const button1 = useRef(null)
@@ -185,7 +186,7 @@ const submitScore = () => {
                             </div>
                                 <div className='enter-score-wrapper'>
                             <input type='text' value={textboxValue} onChange={(event) => {setTextboxValue(event.target.value) }} placeholder='Enter Name' id = 'top-score-submit-box'></input>
-                            <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore()}}>Submit</button>
+                            <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore(); setUpdate({})}}>Submit</button>
                                 </div>
                         </div>
     )
