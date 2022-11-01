@@ -160,9 +160,9 @@ const scoreBoard = () => {
 
 const submitHighScore = () => {
 
-        // set(ref(dataB, `Highscores`), [
-        //     {name: textboxValue, time:  seconds + 's'},
-        // ]);
+        set(ref(dataB, `Highscores`), [...highscores[0],
+            {name: textboxValue, time:  seconds + 's'},
+        ]); 
 
 }
 const submitScore = () => {

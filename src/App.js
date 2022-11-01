@@ -15,13 +15,13 @@ function App() {
     });
 }
 WriteData()
-function WriteDataScore() {
-  set(ref(dataB, `Highscores`), [
-      {name: 'John', time: 50 + 's'},
-      {name: 'Dave', time: 40 + 's'}
-  ]);
-}
-WriteDataScore()
+// function WriteDataScore() {
+//   set(ref(dataB, `Highscores`), [
+//       {name: 'John', time: 50 + 's'},
+//       {name: 'Dave', time: 40 + 's'}
+//   ]);
+// }
+// WriteDataScore()
   return (
     <div className="App">
       <Header/>
