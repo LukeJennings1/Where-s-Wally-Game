@@ -1,17 +1,9 @@
-Wheres Wally Game
+Wheres Wally Fullstack Game
 
-Game Plan: 
+LIVE DEMO URL LINK: https://lukejennings1.github.io/Wheres-Wally-Game/ 
 
-1. Build UI 
-    1.1. - Create General UI (Header/Footer/Middle) - Made
-    1.2. - Create Middle Container for the where's wally image to go - Made
-            if I click the middle container is needs to create that dropdown - Made
+Built using React, CSS3, HTML5 && Firebase (backend)
 
+The game works by layering a css grid over the wheres wally image. It then has function calls on the locations of each character that needs to be found. Once a selection is made the game verifies with the backend database that the location of the chosen character is correct.
 
-    1.3. - When we click it needs to create a dropdown box with options that goes away when the user clicks away - Made
-    
-2.
-    2.1. - Create backend that allows us to check whether the player has clicked on the correct location of that character
-           on the photo (look this up). I think this is done by creating a dataBase where the grid location of each character is located. Then, when we select a grid + a character it will check the database correct grid location for that character against the input. If the input is currect we can display that and if the input is incorrect it wont display it. 
-
-
+Finally, the user is given an option to submit the time taken to complete the game. This leaderboard is retreived / saved to the backend firebase database. 
