@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Wheres-Wally-Game/static/css/main.2619a903.css",
+    "main.js": "/Wheres-Wally-Game/static/js/main.fccd7649.js",
+    "static/media/wally-level-1.png": "/Wheres-Wally-Game/static/media/wally-level-1.8b871ac1382de68197ba.png",
+    "static/media/wally.png": "/Wheres-Wally-Game/static/media/wally.1cc63b522c9cbcca5d9d.png",
+    "static/media/railway.png": "/Wheres-Wally-Game/static/media/railway.b1168a2b001213a3df23.png",
+    "static/media/stadium.png": "/Wheres-Wally-Game/static/media/stadium.7d508271231cc41214d1.png",
+    "static/media/campsite.png": "/Wheres-Wally-Game/static/media/campsite.58e15f46bfed16c1e17e.png",
+    "static/media/Optima-ExtraBlack.otf": "/Wheres-Wally-Game/static/media/Optima-ExtraBlack.5e2ac49b9dd02960fd1e.otf",
+    "static/media/odlaw.jpg": "/Wheres-Wally-Game/static/media/odlaw.f34b5260e086e9e07982.jpg",
+    "index.html": "/Wheres-Wally-Game/index.html",
+    "main.2619a903.css.map": "/Wheres-Wally-Game/static/css/main.2619a903.css.map",
+    "main.fccd7649.js.map": "/Wheres-Wally-Game/static/js/main.fccd7649.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2619a903.css",
+    "static/js/main.fccd7649.js"
+  ]
+}
