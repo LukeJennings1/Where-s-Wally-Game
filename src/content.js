@@ -146,7 +146,7 @@ const restartGame = () => {
 const gameover = () => {
     if (wallyValidator === true && odlawValidator === true && wizardValidator === true) {
         setGameOver(true)
-        setInterval(() => gameOverModal.current.style.opacity = '100%', 800) 
+        setInterval(() => gameOverModal.current.style.opacity = '100%', 900) 
         gameOverModal.current.style.zIndex = "1000";
         gameOverModal.current.style.pointerEvents = "auto";
     }
@@ -186,7 +186,9 @@ const submitScore = () => {
                             </div>
                                 <div className='enter-score-wrapper'>
                             <input type='text' value={textboxValue} onChange={(event) => {setTextboxValue(event.target.value) }} placeholder='Enter Name' id = 'top-score-submit-box'></input>
-                            <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore(); setUpdate({})}}>Submit</button>
+                            <button id = 'scoreboard-submit-button' onClick={() => {submitHighScore(); setUpdate({})}}>SUBMIT</button>
+                            <button id = 'game-restart-button' onClick={() => {restartGame()}} >RESTART</button>
+
                                 </div>
                         </div>
     )
@@ -225,7 +227,7 @@ useEffect(() => {
                 <div className='timer-wrapper'>
                     <div className='restart-wrapper'>
                     <img id = 'restart-icon' src={restart} onClick = {() => {restartGame()}}></img>
-                    <div onClick={() => {restartGame()}}>Reset</div>
+                    <div onClick={() => {restartGame()}}>Restart</div>
                     </div>
                  <img id = 'timer-icon' src={timer}></img>
                  <div id = 'timer'>{minutes + 'm' + ':'}{seconds + 's'}</div>
